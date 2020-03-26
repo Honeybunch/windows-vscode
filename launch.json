@@ -14,28 +14,6 @@
             "cwd": "${workspaceFolder}/smol/windows/llvm/debug/bin/",
             "environment": [],
             "externalConsole": false
-        },
-        {
-            "name": "(Linux) Launch LLVM Debug",
-            "type": "cppdbg",
-            "request": "attach",
-            "program": "./smol",
-            "processId": "${command:pickRemoteProcess}",
-            "pipeTransport": {
-                "debuggerPath": "/usr/bin/gdb",
-                "pipeProgram": "${env:windir}\\system32\\bash.exe",
-                "pipeArgs": [
-                    "-c"
-                ],
-                "pipeCwd": "${workspaceFolder}/smol/linux/llvm/debug/bin/"
-            },
-            "setupCommands": [
-                {
-                    "description": "Enable pretty-printing for gdb",
-                    "text": "-enable-pretty-printing",
-                    "ignoreFailures": true
-                }
-            ]
         }
     ]
 }
