@@ -1,0 +1,540 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+        /*
+            Configure Linux Ninja LLVM
+        */
+        {
+            "label": "Configure Linux Ninja LLVM Debug",
+            "type": "shell",
+            "command": "wsl -u root -- CC=clang CXX=clang++ cmake -G Ninja -B build_linux_ninja_llvm_debug -DCMAKE_BUILD_TYPE=DEBUG -DCMAKE_EXPORT_COMPILE_COMMANDS=ON",
+            "problemMatcher": []
+        },
+        {
+            "label": "Configure Linux Ninja LLVM Profile",
+            "type": "shell",
+            "command": "wsl -u root -- CC=clang CXX=clang++ cmake -G Ninja -B build_linux_ninja_llvm_profile -DCMAKE_BUILD_TYPE=RELWITHDEBINFO",
+            "problemMatcher": []
+        },
+        {
+            "label": "Configure Linux Ninja LLVM Release",
+            "type": "shell",
+            "command": "wsl -u root -- CC=clang CXX=clang++ cmake -G Ninja -B build_linux_ninja_llvm_release -DCMAKE_BUILD_TYPE=RELEASE",
+            "problemMatcher": []
+        },
+        /*
+            Configure Linux Ninja GCC
+        */
+        {
+            "label": "Configure Linux Ninja GCC Debug",
+            "type": "shell",
+            "command": "wsl -u root -- CC=gcc CXX=g++ cmake -G Ninja -B build_linux_ninja_gcc_debug -DCMAKE_BUILD_TYPE=DEBUG -DCMAKE_EXPORT_COMPILE_COMMANDS=ON",
+            "problemMatcher": []
+        },
+        {
+            "label": "Configure Linux Ninja GCC Profile",
+            "type": "shell",
+            "command": "wsl -u root -- CC=gcc CXX=g++ cmake -G Ninja -B build_linux_ninja_gcc_profile -DCMAKE_BUILD_TYPE=RELWITHDEBINFO",
+            "problemMatcher": []
+        },
+        {
+            "label": "Configure Linux Ninja GCC Release",
+            "type": "shell",
+            "command": "wsl -u root -- CC=gcc CXX=g++ cmake -G Ninja -B build_linux_ninja_gcc_release -DCMAKE_BUILD_TYPE=RELEASE",
+            "problemMatcher": []
+        },
+        /*
+            Configure Android Ninja LLVM
+        */
+        {
+            "label": "Configure Android Ninja LLVM Debug",
+            "type": "shell",
+            "command": "cmake -G Ninja -B build_android_ninja_llvm_debug -DCMAKE_SYSTEM_NAME=Android -DCMAKE_SYSTEM_VERSION=29 -DCMAKE_ANDROID_ARCH_ABI=arm64-v8a -DCMAKE_BUILD_TYPE=DEBUG -DCMAKE_EXPORT_COMPILE_COMMANDS=ON",
+            "problemMatcher": []
+        },
+        {
+            "label": "Configure Android Ninja LLVM Profile",
+            "type": "shell",
+            "command": "cmake -G Ninja -B build_android_ninja_llvm_profile -DCMAKE_SYSTEM_NAME=Android -DCMAKE_SYSTEM_VERSION=29 -DCMAKE_ANDROID_ARCH_ABI=arm64-v8a -DCMAKE_BUILD_TYPE=RELWITHDEBINFO",
+            "problemMatcher": []
+        },
+        {
+            "label": "Configure Android Ninja LLVM Release",
+            "type": "shell",
+            "command": "cmake -G Ninja -B build_android_ninja_llvm_release -DCMAKE_SYSTEM_NAME=Android -DCMAKE_SYSTEM_VERSION=29 -DCMAKE_ANDROID_ARCH_ABI=arm64-v8a -DCMAKE_BUILD_TYPE=RELEASE",
+            "problemMatcher": []
+        },
+        /*
+            Configure Windows Ninja LLVM
+        */
+        {
+            "label": "Configure Windows Ninja LLVM Debug",
+            "type": "shell",
+            "command": "cmake -G Ninja -B build_windows_ninja_llvm_debug -DCMAKE_BUILD_TYPE=DEBUG -DCMAKE_EXPORT_COMPILE_COMMANDS=ON",
+            "problemMatcher": []
+        },
+        {
+            "label": "Configure Windows Ninja LLVM Profile",
+            "type": "shell",
+            "command": "cmake -G Ninja -B build_windows_ninja_llvm_profile -DCMAKE_BUILD_TYPE=RELWITHDEBINFO",
+            "problemMatcher": []
+        },
+        {
+            "label": "Configure Windows Ninja LLVM Release",
+            "type": "shell",
+            "command": "cmake -G Ninja -B build_windows_ninja_llvm_release -DCMAKE_BUILD_TYPE=RELEASE",
+            "problemMatcher": []
+        },
+        /*
+            Configure Windows Ninja MSVC
+        */
+        {
+            "label": "Configure Windows Ninja MSVC Debug",
+            "command": "cmd",
+            "type": "process",
+            "args": [
+                "/C %vcvarsall% && cmake -G Ninja -B build_windows_ninja_msvc_debug -DCMAKE_BUILD_TYPE=DEBUG -DCMAKE_EXPORT_COMPILE_COMMANDS=ON",
+            ],
+            "problemMatcher": [],
+            "options": {
+                "env": {
+                    "vcvarsall": "\"C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\Common7\\Tools\\VsDevCmd.bat\" -arch=amd64",
+                }
+            }
+        },
+        {
+            "label": "Configure Windows Ninja MSVC Profile",
+            "command": "cmd",
+            "type": "process",
+            "args": [
+                "/C %vcvarsall% && cmake -G Ninja -B build_windows_ninja_msvc_profile -DCMAKE_BUILD_TYPE=RELWITHDEBINFO",
+            ],
+            "problemMatcher": [],
+            "options": {
+                "env": {
+                    "vcvarsall": "\"C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\Common7\\Tools\\VsDevCmd.bat\" -arch=amd64",
+                }
+            }
+        },
+        {
+            "label": "Configure Windows Ninja MSVC Release",
+            "command": "cmd",
+            "type": "process",
+            "args": [
+                "/C %vcvarsall% && cmake -G Ninja -B build_windows_ninja_msvc_release -DCMAKE_BUILD_TYPE=RELEASE",
+            ],
+            "problemMatcher": [],
+            "options": {
+                "env": {
+                    "vcvarsall": "\"C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\Common7\\Tools\\VsDevCmd.bat\" -arch=amd64",
+                }
+            }
+        },
+        /*
+            Configure All
+        */
+        {
+            "label": "Configure All",
+            "type": "shell",
+            "dependsOn": [
+                "Configure Android Ninja LLVM Debug",
+                "Configure Android Ninja LLVM Profile",
+                "Configure Android Ninja LLVM Release",
+                "Configure Linux Ninja LLVM Debug",
+                "Configure Linux Ninja LLVM Profile",
+                "Configure Linux Ninja LLVM Release",
+                "Configure Linux Ninja GCC Debug",
+                "Configure Linux Ninja GCC Profile",
+                "Configure Linux Ninja GCC Release",
+                "Configure Windows Ninja LLVM Debug",
+                "Configure Windows Ninja LLVM Profile",
+                "Configure Windows Ninja LLVM Release",
+                "Configure Windows Ninja MSVC Debug",
+                "Configure Windows Ninja MSVC Profile",
+                "Configure Windows Ninja MSVC Release",
+            ],
+            "problemMatcher": []
+        },
+        /*
+            Configure Windows
+        */
+        {
+            "label": "Configure Windows",
+            "type": "shell",
+            "dependsOn": [
+                "Configure Windows Ninja LLVM Debug",
+                "Configure Windows Ninja LLVM Profile",
+                "Configure Windows Ninja LLVM Release",
+                "Configure Windows Ninja MSVC Debug",
+                "Configure Windows Ninja MSVC Profile",
+                "Configure Windows Ninja MSVC Release",
+            ],
+            "problemMatcher": []
+        },
+        /*
+            Configure Android
+        */
+        {
+            "label": "Configure Android",
+            "type": "shell",
+            "dependsOn": [
+                "Configure Android Ninja LLVM Debug",
+                "Configure Android Ninja LLVM Profile",
+                "Configure Android Ninja LLVM Release",
+            ],
+            "problemMatcher": []
+        },
+        /*
+            Configure Linux
+        */
+        {
+            "label": "Configure Linux",
+            "type": "shell",
+            "dependsOn": [
+                "Configure Linux Ninja LLVM Debug",
+                "Configure Linux Ninja LLVM Profile",
+                "Configure Linux Ninja LLVM Release",
+                "Configure Linux Ninja GCC Debug",
+                "Configure Linux Ninja GCC Profile",
+                "Configure Linux Ninja GCC Release",
+            ],
+            "problemMatcher": []
+        },
+        /*
+            Build Windows Ninja LLVM
+        */
+        {
+            "label": "Build Windows Ninja LLVM Debug",
+            "type": "shell",
+            "command": "cmake --build build_windows_ninja_llvm_debug --target install",
+            "problemMatcher": [
+                {
+                    "fileLocation": [
+                        "relative",
+                        "${workspaceRoot}/build_windows_ninja_llvm_debug"
+                    ],
+                    "base": "$gcc"
+                }
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        },
+        {
+            "label": "Build Windows Ninja LLVM Profile",
+            "type": "shell",
+            "command": "cmake --build build_windows_ninja_llvm_profile --target install",
+            "problemMatcher": [
+                {
+                    "fileLocation": [
+                        "relative",
+                        "${workspaceRoot}/build_windows_ninja_llvm_profile"
+                    ],
+                    "base": "$gcc"
+                }
+            ],
+            "group": "build"
+        },
+        {
+            "label": "Build Windows Ninja LLVM Release",
+            "type": "shell",
+            "command": "cmake --build build_windows_ninja_llvm_release --target install",
+            "problemMatcher": [
+                {
+                    "fileLocation": [
+                        "relative",
+                        "${workspaceRoot}/build_windows_ninja_llvm_release"
+                    ],
+                    "base": "$gcc"
+                }
+            ],
+            "group": "build"
+        },
+        /*
+            Build Windows Ninja MSVC
+        */
+        {
+            "label": "Build Windows Ninja MSVC Debug",
+            "type": "process",
+            "command": "cmd",
+            "args": [
+                "/C %vcvarsall% && cmake --build build_windows_ninja_msvc_debug --target install",
+            ],
+            "problemMatcher": [
+                {
+                    "fileLocation": [
+                        "relative",
+                        "${workspaceRoot}/build_windows_ninja_msvc_debug"
+                    ],
+                    "base": "$gcc"
+                }
+            ],
+            "options": {
+                "env": {
+                    "vcvarsall": "\"C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\Common7\\Tools\\VsDevCmd.bat\" -arch=amd64",
+                }
+            },
+            "group": "build"
+        },
+        {
+            "label": "Build Windows Ninja MSVC Profile",
+            "type": "process",
+            "command": "cmd",
+            "args": [
+                "/C %vcvarsall% && cmake --build build_windows_ninja_msvc_profile --target install",
+            ],
+            "problemMatcher": [
+                {
+                    "fileLocation": [
+                        "relative",
+                        "${workspaceRoot}/build_windows_ninja_msvc_profile"
+                    ],
+                    "base": "$gcc"
+                }
+            ],
+            "options": {
+                "env": {
+                    "vcvarsall": "\"C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\Common7\\Tools\\VsDevCmd.bat\" -arch=amd64",
+                }
+            },
+            "group": "build"
+        },
+        {
+            "label": "Build Windows Ninja MSVC Release",
+            "type": "process",
+            "command": "cmd",
+            "args": [
+                "/C %vcvarsall% && cmake --build build_windows_ninja_msvc_release --target install",
+            ],
+            "problemMatcher": [
+                {
+                    "fileLocation": [
+                        "relative",
+                        "${workspaceRoot}/build_windows_ninja_msvc_release"
+                    ],
+                    "base": "$gcc"
+                }
+            ],
+            "options": {
+                "env": {
+                    "vcvarsall": "\"C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\Common7\\Tools\\VsDevCmd.bat\" -arch=amd64",
+                }
+            },
+            "group": "build"
+        },
+        /*
+            Build Windows Ninja LLVM
+        */
+        {
+            "label": "Build Android Ninja LLVM Debug",
+            "type": "shell",
+            "command": "cmake --build build_android_ninja_llvm_debug --target install",
+            "problemMatcher": [
+                {
+                    "fileLocation": [
+                        "relative",
+                        "${workspaceRoot}/build_android_ninja_llvm_debug"
+                    ],
+                    "base": "$gcc"
+                }
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        },
+        {
+            "label": "Build Android Ninja LLVM Profile",
+            "type": "shell",
+            "command": "cmake --build build_android_ninja_llvm_profile --target install",
+            "problemMatcher": [
+                {
+                    "fileLocation": [
+                        "relative",
+                        "${workspaceRoot}/build_android_ninja_llvm_profile"
+                    ],
+                    "base": "$gcc"
+                }
+            ],
+            "group": "build"
+        },
+        {
+            "label": "Build Android Ninja LLVM Release",
+            "type": "shell",
+            "command": "cmake --build build_android_ninja_llvm_release --target install",
+            "problemMatcher": [
+                {
+                    "fileLocation": [
+                        "relative",
+                        "${workspaceRoot}/build_android_ninja_llvm_release"
+                    ],
+                    "base": "$gcc"
+                }
+            ],
+            "group": "build"
+        },
+        /*
+            Build Linux Ninja LLVM
+        */
+        {
+            "label": "Build Linux Ninja LLVM Debug",
+            "type": "shell",
+            "command": "wsl -u root -- cmake --build build_linux_ninja_llvm_debug --target install",
+            "problemMatcher": [
+                {
+                    "fileLocation": [
+                        "relative",
+                        "${workspaceRoot}/build_linux_ninja_llvm_debug"
+                    ],
+                    "base": "$gcc"
+                }
+            ]
+        },
+        {
+            "label": "Build Linux Ninja LLVM Profile",
+            "type": "shell",
+            "command": "wsl -u root -- cmake --build build_linux_ninja_llvm_profile --target install",
+            "problemMatcher": [
+                {
+                    "fileLocation": [
+                        "relative",
+                        "${workspaceRoot}/build_linux_ninja_llvm_profile"
+                    ],
+                    "base": "$gcc"
+                }
+            ]
+        },
+        {
+            "label": "Build Linux Ninja LLVM Release",
+            "type": "shell",
+            "command": "wsl -u root -- cmake --build build_linux_ninja_llvm_release --target install",
+            "problemMatcher": [
+                {
+                    "fileLocation": [
+                        "relative",
+                        "${workspaceRoot}/build_linux_ninja_llvm_release"
+                    ],
+                    "base": "$gcc"
+                }
+            ]
+        },
+        /*
+            Build Linux Ninja LLVM
+        */
+        {
+            "label": "Build Linux Ninja GCC Debug",
+            "type": "shell",
+            "command": "wsl -u root -- cmake --build build_linux_ninja_gcc_debug --target install",
+            "problemMatcher": [
+                {
+                    "fileLocation": [
+                        "relative",
+                        "${workspaceRoot}/build_linux_ninja_gcc_debug"
+                    ],
+                    "base": "$gcc"
+                }
+            ]
+        },
+        {
+            "label": "Build Linux Ninja GCC Profile",
+            "type": "shell",
+            "command": "wsl -u root -- cmake --build build_linux_ninja_gcc_profile --target install",
+            "problemMatcher": [
+                {
+                    "fileLocation": [
+                        "relative",
+                        "${workspaceRoot}/build_linux_ninja_gcc_profile"
+                    ],
+                    "base": "$gcc"
+                }
+            ]
+        },
+        {
+            "label": "Build Linux Ninja GCC Release",
+            "type": "shell",
+            "command": "wsl -u root -- cmake --build build_linux_ninja_gcc_release --target install",
+            "problemMatcher": [
+                {
+                    "fileLocation": [
+                        "relative",
+                        "${workspaceRoot}/build_linux_ninja_gcc_release"
+                    ],
+                    "base": "$gcc"
+                }
+            ]
+        },
+        /*
+            Build All
+        */
+        {
+            "label": "Build All",
+            "type": "shell",
+            "dependsOn": [
+                "Build Android Ninja LLVM Debug",
+                "Build Android Ninja LLVM Profile",
+                "Build Android Ninja LLVM Release",
+                "Build Linux Ninja LLVM Debug",
+                "Build Linux Ninja LLVM Profile",
+                "Build Linux Ninja LLVM Release",
+                "Build Linux Ninja GCC Debug",
+                "Build Linux Ninja GCC Profile",
+                "Build Linux Ninja GCC Release",
+                "Build Windows Ninja LLVM Debug",
+                "Build Windows Ninja LLVM Profile",
+                "Build Windows Ninja LLVM Release",
+                "Build Windows Ninja MSVC Debug",
+                "Build Windows Ninja MSVC Profile",
+                "Build Windows Ninja MSVC Release",
+            ],
+            "problemMatcher": []
+        },
+        /*
+            Build Windows
+        */
+        {
+            "label": "Build Windows",
+            "type": "shell",
+            "dependsOn": [
+                "Build Windows Ninja LLVM Debug",
+                "Build Windows Ninja LLVM Profile",
+                "Build Windows Ninja LLVM Release",
+                "Build Windows Ninja MSVC Debug",
+                "Build Windows Ninja MSVC Profile",
+                "Build Windows Ninja MSVC Release",
+            ],
+            "problemMatcher": []
+        },
+        /*
+            Build Android
+        */
+        {
+            "label": "Build Android",
+            "type": "shell",
+            "dependsOn": [
+                "Build Android Ninja LLVM Debug",
+                "Build Android Ninja LLVM Profile",
+                "Build Android Ninja LLVM Release",
+            ],
+            "problemMatcher": []
+        },
+        /*
+            Build Linux
+        */
+        {
+            "label": "Build Linux",
+            "type": "shell",
+            "dependsOn": [
+                "Build Linux Ninja LLVM Debug",
+                "Build Linux Ninja LLVM Profile",
+                "Build Linux Ninja LLVM Release",
+                "Build Linux Ninja GCC Debug",
+                "Build Linux Ninja GCC Profile",
+                "Build Linux Ninja GCC Release",
+            ],
+            "problemMatcher": []
+        },
+    ]
+}
